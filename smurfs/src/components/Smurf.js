@@ -1,6 +1,9 @@
-import React, {useState} from 'react'
+import React, {useState, useContext} from 'react'
 
-import {EditContext} from '../contexts'
+import {SmurfContext} from '../contexts'
+import axios from 'axios'
+
+import EditForm from './EditForm'
 
 const Smurf = ({smurf}) => {
    const [editSmurf, setEditSmurf] = useState({
@@ -8,16 +11,57 @@ const Smurf = ({smurf}) => {
        age: smurf.age,
        height: smurf.height
    })
+   const [editToggle, setEditToggle] = useState(false)
 
-   const [editToggle, setEditToggle] = useState()
+   const {refresh, setRefresh} = useContext(SmurfContext)
+
+   const formEdit = (e) => {
+       setEditSmurf({
+           ...editSmurf,
+           [e.target.name]: e.target.value
+       })
+   }
+
+   const putSmurf = (e) =>{
+       e.preventDefault();
+       axios.put(`http://localhost:3333/smurfs/${smurf.id}`, editSmurf)
+        .then(res => {
+            console.log('put res', res)
+
+        })
+        .catch(err=>{
+            console.log('put err', err)
+        })
+        .finally(()=>{
+            setRefresh(!refresh)
+            setEditToggle(false)
+        })
+   }
 
     return(
         <div className='smurf-container'>
             {
                 editToggle ? (
-                    <button>Don't Edit Smurf</button>
+                    <>
+                        <button onClick={(e)=>{
+                            e.preventDefault()
+                            setEditToggle(false)
+                        }}>
+                            Don't Edit Smurf
+                        </button>
+                        <EditForm 
+                        putSmurf = {putSmurf} 
+                        formEdit={formEdit} 
+                        editSmurf={editSmurf}   
+                        />
+                    </>
                 ):(
-
+                    <button onClick={(e) =>{
+                        e.preventDefault()
+                        setEditToggle(true)
+                    }}>
+                        Edit Smurf
+                    </button>
                 )
             }
 

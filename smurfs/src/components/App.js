@@ -56,7 +56,7 @@ function App() {
   return (
     <div className="App">
       <h1>Smurf Village</h1>
-      <SmurfContext.Provider value={{data, smurfInput, handleFormChange, postSmurf }}>
+      <SmurfContext.Provider value={{data, smurfInput, handleFormChange, postSmurf, refresh, setRefresh }}>
         <SmurfForm /> 
         <SmurfList />
       </SmurfContext.Provider>
