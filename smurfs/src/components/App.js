@@ -21,7 +21,7 @@ function App() {
       .catch(err => {
         console.log(err)
       })
-  },[])
+  },[refresh])
 
   const handleFormChange = e => {
     setSmurfInput({
@@ -45,6 +45,7 @@ function App() {
           age: '',
           height: '',
         })
+        setRefresh(!refresh)
       })
   }
 

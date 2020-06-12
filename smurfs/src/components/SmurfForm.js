@@ -2,9 +2,11 @@ import React, { useContext} from 'react';
 
 import {SmurfContext} from '../contexts'
 
+
+
 const SmurfForm = () => {
 
-    const { data, smurfInput, handleFormChange, postSmurf} = useContext(SmurfContext)
+    const { smurfInput, handleFormChange, postSmurf} = useContext(SmurfContext)
 
     return (
         <>
@@ -29,11 +31,8 @@ const SmurfForm = () => {
                     onChange={(e) => handleFormChange(e)}
                 />
            
-
-
                 <button type="submit">Click to add Smurf</button>
             </form>
-        
         
         </>
     )

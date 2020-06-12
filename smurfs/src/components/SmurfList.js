@@ -4,10 +4,18 @@ import Smurf from './Smurf'
 import {SmurfContext} from "../contexts"
 
 const SmurfList = () => {
+
+    const {data} = useContext(SmurfContext)
+
+    console.log('smurfListData',data)
     return(
         <>
-            <h2>List of Smurfs</h2>
-            <Smurf />
+            {
+                data.map( smurf => (
+                    <Smurf key={smurf.id} smurf={smurf}/>
+                ))
+            }
+            
         </>
     )
 }

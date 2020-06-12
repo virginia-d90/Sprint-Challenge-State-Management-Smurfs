@@ -1,8 +1,14 @@
 import React from 'react'
 
-const Smurf = () => {
+const Smurf = ({smurf}) => {
+    console.log(smurf)
     return(
-        <h3>Smurf</h3>
+        <div className='smurf'>
+            <h4>{smurf.name}</h4>
+            <p>{smurf.age}</p>
+            <p>{smurf.height}</p>
+
+        </div>
 
     )
 }
