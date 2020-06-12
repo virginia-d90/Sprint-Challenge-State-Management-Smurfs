@@ -16,21 +16,46 @@ function App() {
     axios.get("http://localhost:3333/smurfs")
       .then(res => {
         console.log(res)
+        setData(res.data)
       })
-      ///still add a .catch
+      .catch(err => {
+        console.log(err)
+      })
   },[])
 
-  
+  const handleFormChange = e => {
+    setSmurfInput({
+      ...smurfInput,
+      [e.target.name]: e.target.value
+    })
+  }
+
+  const postSmurf = (e) => {
+    e.preventDefault();
+    axios.post("http://localhost:3333/smurfs", smurfInput)
+      .then(addedSmurf => {
+        console.log(addedSmurf)
+      })
+      .catch(err => {
+        console.log('Post error', err)
+      })
+      .finally(() => {
+        setSmurfInput({
+          name: '',
+          age: '',
+          height: '',
+        })
+      })
+  }
+
+
   
   
   
   return (
     <div className="App">
       <h1>Smurf Village</h1>
-      <div>Welcome to your state management version of Smurfs!</div>
-      <div>Start inside of your `src/index.js` file!</div>
-      <div>Have fun!</div>
-      <SmurfContext.Provider value={{data, smurfInput, }}>
+      <SmurfContext.Provider value={{data, smurfInput, handleFormChange, postSmurf }}>
         <SmurfForm /> 
         <SmurfList />
       </SmurfContext.Provider>
